@@ -1,0 +1,116 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+<<<<<<< HEAD
+.App-button {
+  border: none;
+  color: rgb(117, 116, 116);
+  padding: 15px 32px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+=======
+
+@font-face {
+  font-family: "Zen";
+  src: local("MyFont"), url(../../Fonts/ZenOldMincho-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "ZenKaku";
+  src: local("MyFont"), url(../../Fonts/ZenKakuGothicNew-Light.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Noto";
+  src: local("MyFont"), url(../../Fonts/NotoSerifDisplay-ThinItalic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Notol";
+  src: local("MyFont"), url(../../Fonts/NotoSerifDisplay-Thin.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Zen2";
+  src: local("MyFont"), url(../../Fonts/ZenOldMincho-Black.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "PlayItalic";
+  src: local("MyFont"), url(../../Fonts/PlayfairDisplay-MediumItalic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "cmu";
+  src: local("MyFont"), url(../../Fonts/cmunrm.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "dancing";
+  src: local("MyFont"), url(../../Fonts/DancingScript-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "calibre";
+  src: local("MyFont"), url(./Fonts/TestCalibre-Light.otf) format("OpenType");
+}
+
+@font-face {
+  font-family: "Manuka";
+  src: local("MyFont"), url(./Fonts/TestManukaCondensed-Light.otf) format("OpenType");
+}
+
+@font-face {
+  font-family: "Epicene";
+  src: local("MyFont"), url(./Fonts/TestEpiceneDisplay-Light.otf) format("OpenType");
+}
+
+@font-face {
+  font-family: "Domaine";
+  src: local("MyFont"), url(./Fonts/TestDomaineSansDisplay-Light.otf) format("OpenType");
+}
+
+@font-face {
+  font-family: "ManukaL";
+  src: local("MyFont"), url(./Fonts/TestManuka-Light.otf) format("OpenType");
+>>>>>>> 5669319ce64252ee5a88a75d0df87e1156ba02bb
+}
