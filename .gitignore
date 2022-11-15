@@ -7,6 +7,8 @@
 
 # dependencies
 frontend/node_modules/
+api/fbAdminConfig.json
+api/fbconfig.json
 api/node_modules/
 node_modules/
 /.pnp

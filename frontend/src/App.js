@@ -2,6 +2,7 @@ import React, {useState , useEffect} from "react";
 import { Products, Navbar, Cart, Login, Signup} from './components'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Data from "./Data";
+import axios from "axios";
 
 
 
@@ -10,6 +11,16 @@ import Data from "./Data";
 function App() {
 
   // const [products, setProducts] = useState([])
+  const [data, setData] = useState([])
+    useEffect(() => {
+        const fetchData = () => {
+          axios.get('http://localhost:5000').then(
+            (response) => {
+              console.log(response)
+            })
+    }
+        fetchData()
+    }, [])
   
   const { products } = Data;
   const [cartItems, setCartItems] = useState([]);
