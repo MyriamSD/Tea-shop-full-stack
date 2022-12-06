@@ -17,6 +17,7 @@ node_modules/
 ./api/fbConfig.json
 .fbAdminConfig.json
 .fbConfig.json
+helpers/
 
 # testing
 /coverage

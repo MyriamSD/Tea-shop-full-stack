@@ -12,7 +12,7 @@ from flask_restful import Resource, Api, reqparse, abort
 from flask_debugtoolbar import DebugToolbarExtension
 
 
-cred = credentials.Certificate('fbAdminConfig.json')
+cred = credentials.Certificate('./helpers/fbAdminConfig.json')
 default_app = initialize_app(cred)
 db = firestore.client()
 
