@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import CartItem from './CartItem/CartItem';
 import useStyles from './styles';
 
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 
@@ -40,33 +40,38 @@ import { connect } from "react-redux";
 
 
 
-  const Cart = ({ cart }) => {
+  const Cart = () => {
+    const cart = useSelector((state) => state.cart.cart)
+    const totalItems = useSelector((state) => state.cart.totalItems)
+    const subtotal = useSelector((state) => state.cart.cartTotalPrice).toFixed(2)
+    const shipping = 5.95
+
+    const finalPrice = Number(subtotal) + shipping
+
+    // const totalPrice = useSelector((state) => state.cart.cart.)
       const classes = useStyles()
-      const [totalPrice, setTotalPrice] = useState(0);
-      const [totalItems, setTotalItems] = useState(0);
-      const [subTotal, setSubTotal] = useState(0);
-      let shipping = 5.95
+      // const [totalPrice, setTotalPrice] = useState(0);
+      // const [totalItems, setTotalItems] = useState(0);
+      // const [subTotal, setSubTotal] = useState(0);
+      
     
-      useEffect(() => {
-        let items = 0;
-        let price = 0;
-        let shipping = 5.95;
-        let subtotal = 0;
+      // useEffect(() => {
+      //   let items = 0;
+      //   let price = 0;
+      //   let shipping = 5.95;
+      //   let subtotal = 0;
     
-        cart.forEach((item) => {
-          items += item.qty
-          subtotal += item.qty * item.price
-        });
+      //   cart.forEach((item) => {
+      //     items += item.qty
+      //     subtotal += item.qty * item.price
+      //   });
 
-        price += subtotal + shipping;
+      //   price += subtotal + shipping;
     
-        setTotalItems(items);
-        setTotalPrice(price.toFixed(2));
-        setSubTotal(subtotal.toFixed(2));
-      }, [cart, subTotal, setSubTotal, totalPrice, totalItems, setTotalPrice, setTotalItems]);
-
-
-    
+      //   setTotalItems(items);
+      //   setTotalPrice(price.toFixed(2));
+      //   setSubTotal(subtotal.toFixed(2));
+      // }, [cart, subTotal, setSubTotal, totalPrice, totalItems, setTotalPrice, setTotalItems]);
 
     return (
 
@@ -94,11 +99,28 @@ import { connect } from "react-redux";
         {cart.length === 0 && <div>Cart is empty</div>}
         </div>
         <Grid >
+          
         
         {cart.map((item) => (
-                <Grid item key={item.id} > 
-                <CartItem item={item} />
-                </Grid>
+          <Grid item key={item.id} > 
+            <CartItem
+              key={item.id}
+              name={item.name}
+              description={item.description}
+              price={item.price}
+              image={item.image}
+              id={item.id}
+              itemQuantity={item.quantity}
+              totalPrice={item.totalPrice}
+              
+            //   item={{ 
+               
+            //   itemQuantity: item.quantity, 
+            //   totalPrice: item.totalPrice, 
+              
+            // }}
+            />
+          </Grid>
             ))}
         </Grid>
 
@@ -111,7 +133,7 @@ import { connect } from "react-redux";
                           <span>{totalItems}</span>
 
                           <h3>SubTotal</h3>
-                          <span>{subTotal}</span>
+                          <span>{subtotal}</span>
                         </div>
                       
 
@@ -126,7 +148,7 @@ import { connect } from "react-redux";
 
                         <div type="total">
                           <h3>Total</h3>
-                          <span>{totalPrice}</span>
+                          <span>{finalPrice.toFixed(2)}</span>
                         </div>
                     </div>
                     <button className={classes.checkout}>CHECKOUT NOW</button>
@@ -136,13 +158,15 @@ import { connect } from "react-redux";
 
     )};
 
-    const mapStateToProps = (state) => {
-      return {
-        cart: state.shop.cart,
-      };
-    };
+    // const mapStateToProps = (state) => {
+    //   return {
+    //     cart: state.shop.cart,
+    //   };
+    // };
     
-    export default connect(mapStateToProps)(Cart);
+    // export default connect(mapStateToProps)(Cart);
+
+    export default Cart;
 
 
 

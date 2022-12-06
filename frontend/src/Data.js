@@ -2,21 +2,33 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-export const Data = () => {
-    const [data, setData] = useState([])
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch('http://localhost:5000/')
-            setData(response.json())
-            console.log('data')
-        }
-        fetchData()
-    }, [])
-    
-  return (
-    <div>Data</div>
-  )
+let products = []
+
+const fetchData = async () => {
+  axios.get('http://localhost:5000').then(
+    (response) => {
+      // setData(data => [...data, response.data])
+      // for prod in products
+      products.push(response.data)
+      products = products[0]
+      
+
+    })    
 }
+fetchData()
+export const Data = products
+    // const [data, setData] = useState([])
+    // let products =
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const response = await fetch('http://localhost:5000/')
+    //         setData(response.json())
+    //         console.log('data')
+    //     }
+    //     fetchData()
+    // }, [])
+    
+
 
 // const Data = {
 //     products: [

@@ -1,9 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import {Grid} from '@material-ui/core';
 import Tea from './Tea/Tea';
 import useStyles from './styles'
+import axios from 'axios'
+// import { setData } from '../../Redux/Shopping/shopping-actions';
+// import { useDispatch, useSelector } from 'react-redux';
 
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
+
+
+// const getData = () => {
+//   const products = useSelector((state) => state);
+//   const dispatch = useDispatch();
+
+//   const getProducts = async () => {
+//     const response = await axios.get('http://localhost:5000/').then((response) => {
+//       dispatch(setData(response.data));
+//       })    
+//   }
+
+//   return(dispatch) => {
+//       return axios.get('http://localhost:5000/').then((response) => {
+//           dispatch(setData(response.data));
+//           })    
+//   }
+
+// }
 
 // const products = [
 //     {id: 1 , name: 'Black Tea', description: '30g of our Classic black tea; a hand blended mix of whole leaf black tea that is certain to delight all of your senses', price: '15.99', image: 'https://cdn.shopify.com/s/files/1/0696/9261/products/IMG_4804_590x.jpg?v=1633806435' },
@@ -22,31 +45,59 @@ import { connect } from "react-redux";
  
 
 
-const Products = ({ products }) => {
+const Products = (props) => {
+
+  const products =useSelector((state) => state.products.products)
+
+  // const products = useSelector((state) => state);
+  // const dispatch = useDispatch();
+
+  // const getProducts = async () => {
+  //   const response = await axios.get('http://localhost:5000/').then((response) => {
+      
+
+  //   })    
+  //     dispatch(setData(response.data));  
+  // }
+
+  // useEffect(() => {
+  //       getProducts()                                      
+  //   }, [])
+  
+
+  
+    
     const classes = useStyles();
     return (
-
-
+      
         <main className={classes.content}>
         <div className={classes.toolbar}/>
         <Grid container justify='center' spacing={4}>
         {products.map((product) => (
                 <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}> 
-                <Tea product={product}  />
+                <Tea 
+                key={product.id}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                image={product.image}
+                id={product.id}
+                />
                 </Grid>
             ))}
         </Grid>
+        {/* <h1>HEllo World!</h1> */}
         </main>
 
     )};
 
-    const mapStateToProps = (state) => {
-        return {
-          products: state.shop.products,
-        };
-      };
+    // const mapStateToProps = (state) => {
+    //     return {
+    //       products: state.shop.products,
+    //     };
+    //   };
       
-      export default connect(mapStateToProps)(Products);
+      export default Products;
     
 
 

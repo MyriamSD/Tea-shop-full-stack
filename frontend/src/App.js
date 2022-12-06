@@ -1,41 +1,80 @@
-import React, {useState , useEffect} from "react";
-import { Products, Navbar, Cart, Login, Signup} from './components'
+import React, {useState , useEffect, useCallback} from "react";
+import { Navbar, Products, Cart, Login, Signup} from './components'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Data from "./Data";
-import axios from "axios";
+import {useDispatch} from 'react-redux'
+import { getStoreData } from './store/store-data-slice'
+// import Data from "./Data";
+// import axios from "axios";
 
 
 
 // import { commerce } from './lib/commerce';
 
 function App() {
+  const dispatch = useDispatch();
 
-  // const [products, setProducts] = useState([])
-  const [data, setData] = useState([])
-    useEffect(() => {
-        const fetchData = () => {
-          axios.get('http://localhost:5000').then(
-            (response) => {
-              console.log(response)
-            })
-    }
-        fetchData()
-    }, [])
+   const [products, setProducts] = useState([])
   
-  const { products } = Data;
-  const [cartItems, setCartItems] = useState([]);
-  const onAdd = (product) => {
-    const exist = cartItems.find((product) => products.id === product.id);
-    if (exist) {
-      setCartItems(
-        cartItems.map((products) =>
-          products.id === product.id ? { ...exist, qty: exist.qty + 1 } : products
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...product, qty: 1 }]);
-    }
-  };
+  
+
+  // const fetchProducts = useCallback(async () => {
+  //   try{
+  //     const response = await fetch('http://localhost:5000')
+  //     const data = await response.json()
+  //     console.log(data)
+
+  //     const transformedData = data.results.map(data => {
+  //       return {
+  //         id: data.id,
+  //         name: data.name,
+  //         description: data.description,
+  //         price: data.price,
+  //         image: data.imageUrl,
+  //       };
+  //     })
+      
+  //     setProducts(transformedData);
+      
+      
+  //   }catch{
+      
+  //   }
+
+  // }, [])
+  
+    useEffect(() => {
+      dispatch(getStoreData())
+    //     const fetchData = async () => {
+    //       axios.get('http://localhost:5000').then(
+    //         (response) => {
+    //           // setData(data => [...data, response.data])
+              
+    //           prods.push(response)
+    //           console.log(prods[0].data)
+
+    //         })
+            
+    // }
+        // fetchProducts()
+        
+    }, [dispatch])
+  
+  
+  // const { products } = Data;
+  // console.log(Data)
+  // const [cartItems, setCartItems] = useState([]);
+  // const onAdd = (product) => {
+  //   const exist = cartItems.find((product) => products.id === product.id);
+  //   if (exist) {
+  //     setCartItems(
+  //       cartItems.map((products) =>
+  //         products.id === product.id ? { ...exist, qty: exist.qty + 1 } : products
+  //       )
+  //     );
+  //   } else {
+  //     setCartItems([...cartItems, { ...product, qty: 1 }]);
+  //   }
+  // };
   // const onRemove = (product) => {
   //   const exist = cartItems.find((products) => products.id === product.id);
   //   if (exist.qty === 1) {
@@ -49,7 +88,7 @@ function App() {
   //   }
   // };
 
-  const countCartItems = cartItems.length;
+  // const countCartItems = cartItems.length;
 
   // const fetchProducts = async () => {
   //   const { data } = await commerce.products.list();
@@ -74,6 +113,7 @@ function App() {
 // }, []);
 
 
+
   return ( 
     <Router>
       <div className="App">
@@ -84,7 +124,7 @@ function App() {
         
 
         <Route exact path="/">
-            <Products />
+            <Products products = {products}/>
         </Route>
 
 
@@ -92,13 +132,13 @@ function App() {
             <Cart  />
         </Route>
 
-        <Route exact path="/login">
+        {/* <Route exact path="/login">
             <Login />
         </Route>
 
         <Route exact path="/signup">
             <Signup />
-        </Route>
+        </Route> */}
 
 
            

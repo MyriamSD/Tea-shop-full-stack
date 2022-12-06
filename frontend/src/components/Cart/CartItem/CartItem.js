@@ -5,13 +5,14 @@ import useStyles from './styles'
 import { Add, Remove } from "@material-ui/icons";
 import styled from "styled-components";
 
-import { connect } from "react-redux";
-import {
-  adjustItemQty,
-  removeFromCart,
-  addToCart,
-  removeOneFromCart,
-} from "../../../Redux/Shopping/shopping-actions";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../../../store/cart-slice";
+// import {
+//   adjustItemQty,
+//   removeFromCart,
+//   addToCart,
+//   removeOneFromCart,
+// } from "../../../Redux/Shopping/shopping-actions";
 import Cart from "../Cart";
 
 
@@ -23,24 +24,55 @@ import Cart from "../Cart";
 
 
 
-const CartItem = ({ cart, item, adjustQty, removeOneFromCart, addToCart, removeFromCart, }) => {
+const CartItem = (props) => {
+  const {name, itemQuantity, totalPrice, price, image, id } = props;
+  const totalItems = useSelector((state) => state.cart.cart.totalItems)
+  const dispatch = useDispatch()
+  
+  const addItemHandler = () => {
+    dispatch(cartActions.addItem({
+      id,
+      image,
+      price,
+      name,
+      itemQuantity,
+      totalPrice
+    }))
+  }
 
-  const [input, setInput] = useState(item.qty);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalItems, setTotalItems] = useState(0);
+  const removeItemHandler = () => {
+    dispatch(cartActions.removeItem({
+      id,
+      totalPrice,
+      itemQuantity,
+      image,
+      price,
+      name,
+    }))
+  }
 
-  useEffect(() => {
-    let items = 0;
-    let price = 0;
+  const deleteItemHandler = () => {
+    dispatch(cartActions.deleteItem({
+      id,
+      totalPrice,
+      itemQuantity,
+      image,
+      price,
+      name,
+    }))
+  }
+  // useEffect(() => {
+  //   let items = 0;
+  //   let price = 0;
 
-    // cart.forEach((item) => {
-      items += item.qty;
-      price += item.qty * item.price;
-    // });
+  //   // cart.forEach((item) => {
+  //     items += item.qty;
+  //     price += item.qty * item.price;
+  //   // });
 
-    setTotalItems(items);
-    setTotalPrice(price.toFixed(2));
-  }, [item, totalPrice, totalItems, setTotalPrice, setTotalItems]);
+  //   setTotalItems(items);
+  //   setTotalPrice(price.toFixed(2));
+  // }, [item, totalPrice, totalItems, setTotalPrice, setTotalItems]);
 
   // let totalPrice = item.qty * item.price
 
@@ -52,27 +84,27 @@ const CartItem = ({ cart, item, adjustQty, removeOneFromCart, addToCart, removeF
               
       <div className={classes.wrapper}>
         <Box sx={{ flexDirection: 'row' , justifyContent: 'space-evenly' , alignItems: 'center', }} className={classes.product}>
-            <img src={item.image} className={classes.media}/>
+            <img src={props.image} className={classes.media}/>
                        
                 <span className={classes.name} >
-                  {item.name}
+                  {props.name}
                 </span>
 
 
                 <div className={classes.price}>
-                ${item.price}
+                ${props.price}
                 </div>
             
                           
                    
             <Box  className={classes.edge} >
               <span className={classes.row}>
-                <button onClick={() => removeOneFromCart(item.id)} type="button" size="small" className={classes.col}>-</button>
-                <div className={classes.col}> {totalItems} </div>
-                <button onClick={() => addToCart(item.id)} type="button" size="small" className={classes.col}>+</button>
+                <button onClick={removeItemHandler} type="button" size="small" className={classes.col}>-</button>
+                <div className={classes.col}> {itemQuantity} </div>
+                <button onClick={addItemHandler} type="button" size="small" className={classes.col}>+</button>
               </span>
               <div className={classes.total}>{totalPrice}</div>
-              <IconButton style={{ marginLeft: 55}} aria-label="Delete Item"  onClick={() => removeFromCart(item.id)}>
+              <IconButton style={{ marginLeft: 55}} aria-label="Delete Item"  onClick={deleteItemHandler}>
                 <Delete />
               </IconButton>
             </Box>
@@ -87,15 +119,16 @@ const CartItem = ({ cart, item, adjustQty, removeOneFromCart, addToCart, removeF
     );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    adjustQty: (id, value) => dispatch(adjustItemQty(id, value)),
-    removeFromCart: (id) => dispatch(removeFromCart(id)),
-    addToCart: (id) => dispatch(addToCart(id)),
-    removeOneFromCart: (id) => dispatch(removeOneFromCart(id)),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     adjustQty: (id, value) => dispatch(adjustItemQty(id, value)),
+//     removeFromCart: (id) => dispatch(removeFromCart(id)),
+//     addToCart: (id) => dispatch(addToCart(id)),
+//     removeOneFromCart: (id) => dispatch(removeOneFromCart(id)),
+//   };
+// };
 
-export default connect(null, mapDispatchToProps)(CartItem);
+// export default connect(null, mapDispatchToProps)(CartItem);
+export default CartItem
 
 

@@ -1,37 +1,50 @@
 import React from 'react'
 import { Card, CardMedia, CardContent, CardActions, Typography, IconButton} from '@material-ui/core'
+import { useDispatch } from 'react-redux'
+import { cartActions } from '../../../store/cart-slice'
 import { AddShoppingCart }from '@material-ui/icons'
 import useStyles from './styles'
 import { Link } from "react-router-dom";
 
-import { connect } from "react-redux";
-import {
-  loadCurrentItem,
-  addToCart,
-} from "../../../Redux/Shopping/shopping-actions";
 
 
 
-const Tea = ({ product, addToCart, loadCurrentItem }) => {
+
+const Tea = (props) => {
+  const {name, description, image, price, id} = props;
     const classes = useStyles();
+    const dispatch = useDispatch();
+  
+
+    const addItemHandler = () => {
+      dispatch(cartActions.addItem({
+        id,
+        name,
+        description,
+        image,
+        price
+      }))
+    }
+
+
     
     
     return (
         <Card className={classes.root} style={{height: '450px'}}>
-      <CardMedia className={classes.media} image={product.image} title={product.name} />
+      <CardMedia className={classes.media} image={props.image} title={props.name} />
       <CardContent style={{height: '150px'}}>
         <div className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="h2">
-            {product.name}
+            {props.name}
           </Typography>
           <Typography gutterBottom variant="h5" component="h2">
-            ${product.price}
+            ${props.price}
           </Typography>
         </div>
-        <Typography variant="body2" color="textSecondary" component="p">{product.description} </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">{props.description} </Typography>
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
-        <IconButton aria-label="Add to Cart"  onClick={() => addToCart(product.id)}>
+        <IconButton aria-label="Add to Cart"  onClick={addItemHandler}>
           <AddShoppingCart />
         </IconButton>
       </CardActions>
@@ -39,13 +52,14 @@ const Tea = ({ product, addToCart, loadCurrentItem }) => {
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addToCart: (id) => dispatch(addToCart(id)),
-    loadCurrentItem: (item) => dispatch(loadCurrentItem(item)),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     addToCart: (id) => dispatch(addToCart(id)),
+//     loadCurrentItem: (item) => dispatch(loadCurrentItem(item)),
+//   };
+// };
 
-export default connect(null, mapDispatchToProps)(Tea);
+// export default connect(null, mapDispatchToProps)(Tea);
+export default Tea;
 
 

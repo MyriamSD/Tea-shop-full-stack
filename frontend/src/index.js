@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 // import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { Provider } from 'react-redux'
-import store from './Redux/store'
+import store from './store/index'
 
 ReactDOM.render(
   <React.StrictMode>

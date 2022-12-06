@@ -65,7 +65,8 @@ class Products(Resource):
     # print('hello')
     # {'Hello': 'world'}, 200
      
-    return jsonify(all_products)
+    return jsonify({"results": all_products})
+    
 
   def post():
     pass
