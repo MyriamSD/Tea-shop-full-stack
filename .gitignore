@@ -13,8 +13,8 @@ api/node_modules/
 node_modules/
 /.pnp
 .pnp.js
-fbAdminConfig.json
-fbConfig.json
+./api/fbAdminConfig.json
+./api/fbConfig.json
 
 # testing
 /coverage
