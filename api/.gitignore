@@ -1,7 +1,8 @@
+/
 frontend/node_modules/
 api/fbAdminConfig.json
 api/fbconfig.json
 api/node_modules/
 node_modules/
-fbAdminConfig.json
-fbConfig.json
+.fbAdminConfig.json
+.fbConfig.json
