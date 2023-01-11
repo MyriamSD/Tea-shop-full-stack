@@ -1,9 +1,16 @@
 import React, {useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import useStyles from './styles';
-import { Card, CardActions, CardHeader, CardContent } from '@material-ui/core';
+import { Card, CardActions, CardHeader, CardContent, Typography} from '@material-ui/core';
+import { adminLoginActions } from '../../store/admin-login-slice';
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const Signup = () => {
   const classes = useStyles()
+  const dispatch = useDispatch()
+
+  const adminIsAuth = useSelector((state) => state.adminAuth.adminIsAuth)
 
 
   const [name, setName] = useState("");
@@ -11,36 +18,48 @@ const Signup = () => {
   const [password, setPassWord] = useState("");
   const [message, setMessage] = useState("");
 
-  let handleSubmit = async (e) => {
+  let handleAdminLogin = async (e) => {
     e.preventDefault();
-    try {
-      let res = await fetch("https://localhost:4040/new", {
-        method: "POST",
-        body: JSON.stringify({
-          name: name,
-          username: email,
-          password: password,
-        }),
-      });
-      let resJson = await res.json();
-      if (res.status === 200) {
-        setName("");
-        setEmail("");
-        setPassWord("");
-        setMessage("Please verify your email and then log in");
-      } else {
-        setMessage("Some error occured");
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(adminLoginActions.authenticateAdmin())
+
+    // <Router> 
+    //   <Switch>
+    //   <Route exact path="/"/>
+    //   </Switch>
+    // </Router>
+
+    
+
+
+    // try {
+    //   let res = await fetch("https://localhost:4040/new", {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       name: name,
+    //       username: email,
+    //       password: password,
+    //     }),
+    //   });
+    //   let resJson = await res.json();
+    //   if (res.status === 200) {
+    //     setName("");
+    //     setEmail("");
+    //     setPassWord("");
+    //     setMessage("Please verify your email and then log in");
+    //   } else {
+    //     setMessage("Some error occured");
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   
   
   return (
       
-    <form className={classes.container} onSubmit={handleSubmit} noValidate autoComplete="off">
+    <form className={classes.container} onSubmit={handleAdminLogin} noValidate autoComplete="off">
+    
       <Card className={classes.card}>
         <CardHeader className={classes.header} title="Create an Account" />
         <CardContent>
@@ -83,6 +102,8 @@ const Signup = () => {
           </CardActions>
           </CardContent>
       </Card>
+
+ 
     </form>
   
 

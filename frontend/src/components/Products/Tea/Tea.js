@@ -4,10 +4,6 @@ import { useDispatch } from 'react-redux'
 import { cartActions } from '../../../store/cart-slice'
 import { AddShoppingCart }from '@material-ui/icons'
 import useStyles from './styles'
-import { Link } from "react-router-dom";
-
-
-
 
 
 const Tea = (props) => {
@@ -26,8 +22,6 @@ const Tea = (props) => {
       }))
     }
 
-
-    
     
     return (
         <Card className={classes.root} style={{height: '450px'}}>
@@ -52,14 +46,6 @@ const Tea = (props) => {
     )
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     addToCart: (id) => dispatch(addToCart(id)),
-//     loadCurrentItem: (item) => dispatch(loadCurrentItem(item)),
-//   };
-// };
-
-// export default connect(null, mapDispatchToProps)(Tea);
 export default Tea;
 
 

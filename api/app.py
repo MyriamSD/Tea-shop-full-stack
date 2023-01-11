@@ -5,11 +5,16 @@ import json
 # import json
 import os
 
+# from fastapi import FastAPI
+# from fastapi.params import Body
+from pydantic import BaseModel
 from flask import Flask, request, render_template, redirect, flash, session, jsonify
+from flask_pydantic import validate
 from flask_cors import CORS
 from firebase_admin import credentials, firestore, initialize_app
 from flask_restful import Resource, Api, reqparse, abort
 from flask_debugtoolbar import DebugToolbarExtension
+from typing import Optional
 
 
 cred = credentials.Certificate('./helpers/fbAdminConfig.json')
@@ -23,7 +28,9 @@ products = db.collection('products')
 
 app = Flask(__name__)
 api = Api(app)
+# app = FastAPI()
 CORS(app)
+
 
 app.config['SECRET_KEY'] = "secret"
 debug = DebugToolbarExtension(app)
@@ -40,25 +47,26 @@ names = {
 
 # product_id = request.args.get('id')
 all_products = [doc.to_dict() for doc in products.stream()]
-print(json.dumps(all_products))
-# user_put_args = reqparse.RequestParser()
-# user_put_args.add_argument('name', type=str, help='who are you')
-# user_put_args.add_argument('age', type=int, help='how old are you?')
+# print(json.dumps(all_products))
+
+class QueryParams(BaseModel):
+    name: Optional[str]
+    # price: str
+    # description: str
+    # imageUrl: str
+
+class ResponseModel(BaseModel):
+  name: str
 
 
 
 
 
-# def abort_if_user_id_doesnt_exist(user_id):
-#     if user_id not in users:
-#           abort(404, message='user id is not valid')
 
-# def abort_if_user_already_exists(user_id):
-#     if user_id in users:
-#           abort(409, message="user already exists")
 
-class Products(Resource):
-  @staticmethod
+# class Products(Resource):
+  @app.route('/', methods=["GET"])
+  @validate()
   def get():
     # product_id = request.args.get('id')
     # all_products = [doc.to_dict() for doc in products.stream()]
@@ -67,9 +75,14 @@ class Products(Resource):
      
     return jsonify({"results": all_products})
     
-
-  def post():
-    pass
+  @app.route('/new', methods=["POST"])
+  @validate()
+  def post(query: QueryParams):
+    print(query)
+    return {'sucess': f'{query}'}
+    # ResponseModel(
+    #   name=name
+    # )
 
   def put():
     pass
@@ -91,7 +104,8 @@ class Products(Resource):
 #         return '', 204
 
 # api.add_resource(HelloWorld, '/<string:name>')
-api.add_resource(Products, "/")
+# api.add_resource(Products, "/")
+# api.add_resource(Products, "/new")
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -99,13 +113,5 @@ if __name__ == '__main__':
 
 
 
-# class HelloWorld(Resource):
-#   def get(self):
-#     return {"Hello World"}
 
-
-
-# firebase = pyrebase.initialize_app(firebaseConfig)
-# db = firebase.database()
-# auth=firebase.auth()
 

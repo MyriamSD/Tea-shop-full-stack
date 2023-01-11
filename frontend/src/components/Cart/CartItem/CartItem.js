@@ -1,32 +1,14 @@
-import React, { useState, useEffect} from "react";
-import { Box, Card, CardMedia, CardContent, CardActions, Typography, IconButton, Divider, } from '@material-ui/core'
-import { AddShoppingCart, Delete }from '@material-ui/icons'
+import React from "react";
+import { Box, IconButton } from '@material-ui/core'
+import { Delete }from '@material-ui/icons'
 import useStyles from './styles'
-import { Add, Remove } from "@material-ui/icons";
-import styled from "styled-components";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { cartActions } from "../../../store/cart-slice";
-// import {
-//   adjustItemQty,
-//   removeFromCart,
-//   addToCart,
-//   removeOneFromCart,
-// } from "../../../Redux/Shopping/shopping-actions";
-import Cart from "../Cart";
-
-
-
-
-
-
-
-
 
 
 const CartItem = (props) => {
   const {name, itemQuantity, totalPrice, price, image, id } = props;
-  const totalItems = useSelector((state) => state.cart.cart.totalItems)
   const dispatch = useDispatch()
   
   const addItemHandler = () => {
@@ -84,7 +66,7 @@ const CartItem = (props) => {
               
       <div className={classes.wrapper}>
         <Box sx={{ flexDirection: 'row' , justifyContent: 'space-evenly' , alignItems: 'center', }} className={classes.product}>
-            <img src={props.image} className={classes.media}/>
+            <img src={props.image} className={classes.media} alt={props.name}/>
                        
                 <span className={classes.name} >
                   {props.name}
@@ -103,7 +85,7 @@ const CartItem = (props) => {
                 <div className={classes.col}> {itemQuantity} </div>
                 <button onClick={addItemHandler} type="button" size="small" className={classes.col}>+</button>
               </span>
-              <div className={classes.total}>{totalPrice}</div>
+              <div className={classes.total}>{totalPrice.toFixed(2)}</div>
               <IconButton style={{ marginLeft: 55}} aria-label="Delete Item"  onClick={deleteItemHandler}>
                 <Delete />
               </IconButton>
