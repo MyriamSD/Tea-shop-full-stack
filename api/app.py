@@ -31,6 +31,7 @@ product_post_args.add_argument("name", type=str, help="Add a name", required=Tru
 product_post_args.add_argument("price", type=str, help="Add a price", required=True)
 product_post_args.add_argument("description", type=str, help="Add a description", required=True)
 product_post_args.add_argument("imageUrl", type=str, help="Add image", required=True)
+product_post_args.add_argument("qty", type=int, help="Add quantity in stock", required=True)
 product_post_args.add_argument("id", type=int, help="Add id", required=False)
 
 
@@ -79,7 +80,6 @@ class Product(Resource):
 
 api.add_resource(Products, '/')
 api.add_resource(Product, "/<int:product_id>")
-# api.add_resource(Products, "/")
 
 if __name__ == '__main__':
     app.run(debug=True)

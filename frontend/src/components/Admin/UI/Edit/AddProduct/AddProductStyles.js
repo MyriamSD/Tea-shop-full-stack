@@ -2,10 +2,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
 
-    content: {
-        paddingTop: '5%',
-        paddingLeft: '15%',
-        marginLeft: '5%',
+    formcard: {
+        paddingTop: '15%',
+        paddingLeft: '30%',
+        marginLeft: '20%',
+        width: '30%',
     },
 
     table: {
